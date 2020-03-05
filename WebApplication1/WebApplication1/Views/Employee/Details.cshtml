@@ -1,0 +1,36 @@
+﻿
+@model IEnumerable<WebApplication1.Models.tblEmployee>
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Employee Details</title>
+</head>
+<body>
+    <h4>Employee</h4>
+    <hr />
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <th>Employee ID</th>
+            <th>Employee Name</th>
+            <th>Gender</th>
+            <th>City</th>
+        </tr>
+
+        @foreach (WebApplication1.Models.tblEmployee Employee in Model)
+        {
+            <tr>
+                <td>@Employee.EmployeeId</td>
+                <td>@Employee.Name</td>
+                <td>@Employee.Gender</td>
+                <td>@Employee.City</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

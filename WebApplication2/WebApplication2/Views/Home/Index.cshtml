@@ -1,0 +1,75 @@
+﻿@model  IEnumerable<WebApplication2.Models.EmployeLayer>
+@{
+    /**/
+
+    ViewBag.Title = "Home Page";
+}
+@if (Session["username"] != null)
+{
+    <h2>welcome @Session["username"].ToString()</h2>
+}
+
+<table id="customers" class="table table-bordered table-responsive">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>City</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    
+</table>
+<div>
+    @Html.ActionLink("Logout", "Index", "UserLogin")
+</div>
+<style>
+<link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
+</style>
+<script type="text/javascript">
+    function preventback() {
+        window.history.forward();
+    }
+    setTimeout("preventback()", 0);
+    window.onunload = function () {
+        null;
+    }
+</script>
+
+@section scripts{
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"> </script>
+    <script>
+        $(document).ready(function () {
+            $('#customers').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "filter": false,
+                "ajax": {
+                    "url": "home/LoadData",
+                    "type": "POST",
+                    "dataType": "json"
+                },
+                "columns": [
+                    { "data": "Name", "name": "Name", "autoWidth": true },
+                    { "data": "Gender", "name": "Gender", "autoWidth": true },
+                    { "data": "City", "name": "City", "autoWidth": true }
+                ]
+            });
+        });
+
+        $(document).ready(function () {
+            $("#customers .js-delete").click(function () {
+                var button = $(this);
+                if (confirm("Are you sure you want to delted this user!!")) {
+                    $.ajax({
+                        url: "Home/About/id=" + button.attr("data-customer-id"),
+                        method: "GET",
+                        success: function () {
+                            button.parents("tr").remove();
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

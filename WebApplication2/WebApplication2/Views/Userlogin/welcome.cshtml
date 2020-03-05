@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "welcome";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if(Session["username"] != null)
+{
+    <h2>welcome @Session["username"].ToString()</h2>
+}
+
+    <div>
+        @Html.ActionLink("Logout", "Index")
+    </div>
+<script type="text/javascript">
+    function preventback() {
+        window.history.forward();
+    }
+    setTimeout("preventback()", 0);
+    window.onunload = function(){
+        null;
+    }
+</script>
